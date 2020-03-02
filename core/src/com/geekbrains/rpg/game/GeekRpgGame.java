@@ -24,8 +24,8 @@ public class GeekRpgGame extends ApplicationAdapter {
         batch = new SpriteBatch();
         hero = new Hero();
         textureGrass = new Texture("grass.png");
-        texturePointer = new Texture("pointer.png");
-        pointerPosition = new Vector2(0, 0);
+//        texturePointer = new Texture("pointer.png");
+//        pointerPosition = new Vector2(0, 0);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class GeekRpgGame extends ApplicationAdapter {
                 batch.draw(textureGrass, i * 80, j * 80);
             }
         }
-        batch.draw(texturePointer, pointerPosition.x - 32, pointerPosition.y - 32, 32, 32, 64, 64, 1, 1, rt, 0, 0, 64, 64, false, false);
+//        batch.draw(texturePointer, pointerPosition.x - 32, pointerPosition.y - 32, 32, 32, 64, 64, 1, 1, rt, 0, 0, 64, 64, false, false);
         hero.render(batch);
         batch.end();
     }
@@ -48,9 +48,9 @@ public class GeekRpgGame extends ApplicationAdapter {
     public void update(float dt) {
         rt -= dt * 90.0f;
         hero.update(dt);
-        if (Gdx.input.justTouched()) {
-            pointerPosition.set(Gdx.input.getX(), 720.0f - Gdx.input.getY());
-        }
+//        if (Gdx.input.justTouched()) {
+//            pointerPosition.set(Gdx.input.getX(), 720.0f - Gdx.input.getY());
+//        }
     }
 
     @Override

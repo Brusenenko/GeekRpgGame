@@ -9,11 +9,13 @@ import com.badlogic.gdx.math.Vector2;
 public class Hero {
     private Texture texture;
     private Vector2 position;
+    private Vector2 position2;
     private float speed;
 
     public Hero() {
         this.texture = new Texture("hero.png");
         this.position = new Vector2(100, 100);
+        this.position2 = new Vector2();
         this.speed = 100.0f;
     }
 
@@ -22,17 +24,10 @@ public class Hero {
     }
 
     public void update(float dt) {
-        if(Gdx.input.isKeyPressed(Input.Keys.A)) {
-            position.x -= speed * dt;
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.D)) {
-            position.x += speed * dt;
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.S)) {
-            position.y -= speed * dt;
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.W)) {
-            position.y += speed * dt;
+        if (Gdx.input.isTouched()) {
+            position2.set(Gdx.input.getX() - position.x, 720.0f - Gdx.input.getY() - position.y);
+            position2.nor();
+            position.add(position2);
         }
     }
 }
