@@ -16,6 +16,8 @@ public class GeekRpgGame extends ApplicationAdapter {
     private TextureAtlas atlas;
     private TextureRegion textureGrass;
     private Hero hero;
+    private Apple apple;
+    private Projectile projectile;
 
     // Домашнее задание:
     // 0. Разобраться с кодом
@@ -25,11 +27,13 @@ public class GeekRpgGame extends ApplicationAdapter {
 
     @Override
     public void create() {
-        this.batch = new SpriteBatch();
         this.atlas = new TextureAtlas("game.pack");
-        this.hero = new Hero(atlas);
+        this.projectile = new Projectile(atlas);
+        this.batch = new SpriteBatch();
+        this.hero = new Hero(atlas, projectile);
         this.textureGrass = atlas.findRegion("grass");
         this.font32 = new BitmapFont(Gdx.files.internal("font32.fnt"));
+        this.apple = new Apple(atlas, projectile);
     }
 
     @Override
@@ -46,11 +50,15 @@ public class GeekRpgGame extends ApplicationAdapter {
         }
         hero.render(batch);
         hero.renderGUI(batch, font32);
+        apple.render(batch);
+        projectile.render(batch);
         batch.end();
     }
 
     public void update(float dt) {
         hero.update(dt);
+        projectile.update(dt);
+        apple.update();
     }
 
     @Override

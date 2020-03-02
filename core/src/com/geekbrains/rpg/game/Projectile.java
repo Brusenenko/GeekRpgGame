@@ -44,4 +44,8 @@ public class Projectile {
             }
         }
     }
+
+    public Vector2 getPosition() {
+        return position;
+    }
 }
