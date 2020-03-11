@@ -68,7 +68,10 @@ public class GameScreen extends AbstractScreen {
             Projectile p = projectilesController.getActiveList().get(i);
             if (p.getPosition().dst(monster.getPosition()) < 24) {
                 p.deactivate();
-                monster.takeDamage(1);
+                if (monster.takeDamage(1)) {
+                    hero.addScore();
+                    monster.reload();
+                }
             }
         }
     }
