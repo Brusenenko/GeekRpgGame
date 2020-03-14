@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 public class Hero {
@@ -23,7 +22,6 @@ public class Hero {
     private int hp;
     private int hpMax;
     private StringBuilder strBuilder;
-    private int score;
 
     public Vector2 getPosition() {
         return position;
@@ -41,7 +39,6 @@ public class Hero {
         this.hpMax = 10;
         this.hp = 10;
         this.strBuilder = new StringBuilder();
-        this.score = 0;
     }
 
     public void render(SpriteBatch batch) {
@@ -54,8 +51,6 @@ public class Hero {
         strBuilder.setLength(0);
         strBuilder.append("Class: ").append("Knight").append("\n");
         strBuilder.append("HP: ").append(hp).append(" / ").append(hpMax).append("\n");
-        strBuilder.append("Score: ").append(score).append("\n");
-
         font.draw(batch, strBuilder, 10, 710);
     }
 
@@ -72,18 +67,6 @@ public class Hero {
             position.mulAdd(tmp, dt);
         } else {
             position.set(dst);
-        }
-    }
-
-    public void addScore() {
-        this.score += MathUtils.random(3, 10);
-    }
-
-    public void takeDamage(int amount) {
-        this.hp -= amount;
-        if (hp <= 0) {
-            this.hp = this.hpMax;
-            this.score = 0;
         }
     }
 }
