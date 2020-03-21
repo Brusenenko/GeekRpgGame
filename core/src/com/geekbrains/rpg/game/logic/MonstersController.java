@@ -1,9 +1,7 @@
 package com.geekbrains.rpg.game.logic;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.geekbrains.rpg.game.logic.Projectile;
 import com.geekbrains.rpg.game.logic.utils.ObjectPool;
 import com.geekbrains.rpg.game.screens.utils.Assets;
 
@@ -22,12 +20,6 @@ public class MonstersController extends ObjectPool<Monster> {
         this.spawnPeriod = 30.0f;
         for (int i = 0; i < initialCount; i++) {
             getActiveElement().generateMe();
-        }
-    }
-
-    public void render(SpriteBatch batch) {
-        for (int i = 0; i < getActiveList().size(); i++) {
-            getActiveList().get(i).render(batch, null);
         }
     }
 

@@ -35,6 +35,7 @@ public class WorldRenderer {
             Monster m = gc.getMonstersController().getActiveList().get(i);
             drawables[m.getCellY()].add(m);
         }
+
         for (int i = 0; i < gc.getProjectilesController().getActiveList().size(); i++) {
             Projectile p = gc.getProjectilesController().getActiveList().get(i);
             drawables[p.getCellY()].add(p);

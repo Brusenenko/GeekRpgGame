@@ -23,6 +23,7 @@ public class Hero extends GameCharacter {
         this.changePosition(100.0f, 100.0f);
         this.dst.set(position);
         this.strBuilder = new StringBuilder();
+        this.weapon = Weapon.createSimpleMeleeWeapon();
     }
 
     @Override
@@ -42,6 +43,7 @@ public class Hero extends GameCharacter {
 
     @Override
     public void onDeath() {
+        super.onDeath();
         coins = 0;
         hp = hpMax;
     }
@@ -49,12 +51,18 @@ public class Hero extends GameCharacter {
     @Override
     public void update(float dt) {
         super.update(dt);
-
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+            for (int i = 0; i < gc.getMonstersController().getActiveList().size(); i++) {
+                Monster m = gc.getMonstersController().getActiveList().get(i);
+                if (m.getPosition().dst(Gdx.input.getX(), 720.0f - Gdx.input.getY()) < 30.0f) {
+                    state = State.ATTACK;
+                    target = m;
+                    return;
+                }
+            }
             dst.set(Gdx.input.getX(), 720.0f - Gdx.input.getY());
-        }
-        if (Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT)) {
-            gc.getProjectilesController().setup(position.x, position.y, Gdx.input.getX(), 720.0f - Gdx.input.getY());
+            state = State.MOVE;
+            target = null;
         }
     }
 }
