@@ -21,6 +21,7 @@ public abstract class GameCharacter implements MapElement {
 
     protected float lifetime;
     protected float speed;
+    protected float visionRadius;
     protected int hp, hpMax;
 
     public int getCellX() {

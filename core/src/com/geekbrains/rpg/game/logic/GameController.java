@@ -5,17 +5,17 @@ import com.badlogic.gdx.math.Vector2;
 
 public class GameController {
     private ProjectilesController projectilesController;
+    private MonstersController monstersController;
     private Map map;
     private Hero hero;
-    private Monster monster;
     private Vector2 tmp, tmp2;
 
     public Hero getHero() {
         return hero;
     }
 
-    public Monster getMonster() {
-        return monster;
+    public MonstersController getMonstersController() {
+        return monstersController;
     }
 
     public Map getMap() {
@@ -29,18 +29,16 @@ public class GameController {
     public GameController() {
         this.projectilesController = new ProjectilesController();
         this.hero = new Hero(this);
-        this.monster = new Monster(this);
         this.map = new Map();
+        this.monstersController = new MonstersController(this, 10);
         this.tmp = new Vector2(0, 0);
         this.tmp2 = new Vector2(0, 0);
     }
 
     public void update(float dt) {
         hero.update(dt);
-        monster.update(dt);
-
+        monstersController.update(dt);
         checkCollisions();
-        collideUnits(hero, monster);
         projectilesController.update(dt);
     }
 
@@ -64,16 +62,33 @@ public class GameController {
     }
 
     public void checkCollisions() {
+        for (int i = 0; i < monstersController.getActiveList().size() - 1; i++) {
+            Monster m = monstersController.getActiveList().get(i);
+            collideUnits(hero, m);
+        }
+
+        for (int i = 0; i < monstersController.getActiveList().size() - 1; i++) {
+            Monster m = monstersController.getActiveList().get(i);
+            for (int j = i + 1; j < monstersController.getActiveList().size(); j++) {
+                Monster m2 = monstersController.getActiveList().get(j);
+                collideUnits(m, m2);
+            }
+        }
+
+
         for (int i = 0; i < projectilesController.getActiveList().size(); i++) {
             Projectile p = projectilesController.getActiveList().get(i);
             if (!map.isAirPassable(p.getCellX(), p.getCellY())) {
                 p.deactivate();
                 continue;
             }
-            if (p.getPosition().dst(monster.getPosition()) < 24) {
-                p.deactivate();
-                if (monster.takeDamage(1)) {
-                    hero.addCoins(MathUtils.random(1, 10));
+            for (int j = 0; j < monstersController.getActiveList().size(); j++) {
+                Monster m = monstersController.getActiveList().get(j);
+                if (p.getPosition().dst(m.getPosition()) < 24) {
+                    p.deactivate();
+                    if (m.takeDamage(1)) {
+                        hero.addCoins(MathUtils.random(1, 10));
+                    }
                 }
             }
         }
