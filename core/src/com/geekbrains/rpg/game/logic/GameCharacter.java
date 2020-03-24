@@ -184,6 +184,7 @@ public abstract class GameCharacter implements MapElement {
     public boolean takeDamage(GameCharacter attacker, int amount) {
         lastAttacker = attacker;
         hp -= amount;
+        gc.getMessagesController().setup(position.x + 20, position.y + 50, -amount);
         damageTimer += 0.4f;
         if (damageTimer > 1.0f) {
             damageTimer = 1.0f;
