@@ -69,12 +69,13 @@ public abstract class GameCharacter implements MapElement {
         return weapon;
     }
 
-    public void restoreHp(float percent) {
+    public int restoreHp(float percent) {
         int amount = (int) (hpMax * percent);
-        hp += amount;
-        if (hp > hpMax) {
-            hp = hpMax;
+        if (hp + amount > hpMax) {
+            amount = hpMax - hp;
         }
+        hp += amount;
+        return amount;
     }
 
     public void changePosition(float x, float y) {
@@ -184,7 +185,6 @@ public abstract class GameCharacter implements MapElement {
     public boolean takeDamage(GameCharacter attacker, int amount) {
         lastAttacker = attacker;
         hp -= amount;
-        gc.getMessagesController().setup(position.x + 20, position.y + 50, -amount);
         damageTimer += 0.4f;
         if (damageTimer > 1.0f) {
             damageTimer = 1.0f;
