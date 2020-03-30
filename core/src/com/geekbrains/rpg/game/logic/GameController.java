@@ -14,6 +14,7 @@ public class GameController {
     private MonstersController monstersController;
     private WeaponsController weaponsController;
     private SpecialEffectsController specialEffectsController;
+    private MessagesController messagesController;
     private List<GameCharacter> allCharacters;
     private Map map;
     private Hero hero;
@@ -31,6 +32,10 @@ public class GameController {
 
     public SpecialEffectsController getSpecialEffectsController() {
         return specialEffectsController;
+    }
+
+    public MessagesController getMessagesController() {
+        return messagesController;
     }
 
     public PowerUpsController getPowerUpsController() {
@@ -70,6 +75,7 @@ public class GameController {
         this.map = new Map();
         this.monstersController = new MonstersController(this, 25);
         this.specialEffectsController = new SpecialEffectsController();
+        this.messagesController = new MessagesController(this);
         this.tmp = new Vector2(0, 0);
         this.tmp2 = new Vector2(0, 0);
         this.mouse = new Vector2(0, 0);
@@ -91,6 +97,7 @@ public class GameController {
         weaponsController.update(dt);
         powerUpsController.update(dt);
         specialEffectsController.update(dt);
+        messagesController.update(dt);
     }
 
     public void collideUnits(GameCharacter u1, GameCharacter u2) {
