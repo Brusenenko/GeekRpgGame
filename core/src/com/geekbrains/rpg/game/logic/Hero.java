@@ -29,6 +29,8 @@ public class Hero extends GameCharacter {
         strBuilder.append("HP: ").append(hp).append(" / ").append(hpMax).append("\n");
         strBuilder.append("Coins: ").append(coins).append("\n");
         strBuilder.append("Weapon: ").append(weapon.getTitle()).append(" [").append(weapon.getMinDamage()).append("-").append(weapon.getMaxDamage()).append("]\n");
+        strBuilder.append("Lvl: ").append(lvl).append("\n");
+        strBuilder.append("Exp: ").append(expToScreen).append("\n");
         font.draw(batch, strBuilder, 10, 710);
     }
 

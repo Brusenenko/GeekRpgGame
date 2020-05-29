@@ -46,10 +46,26 @@ public abstract class GameCharacter implements MapElement {
     protected int hp, hpMax;
     protected int coins;
 
+    protected int lvl = 1;
+    protected int exp;
+    protected StringBuilder expToScreen;
+    protected int i = 100;
+
     protected Weapon weapon;
 
     public void addCoins(int amount) {
         coins += amount;
+    }
+
+    public void addExp(int amount) {
+        int e = i * lvl;
+        expToScreen.setLength(0);
+        expToScreen.append(exp).append(" / ").append(e);
+        exp += amount;
+        if (exp >= e) {
+            lvl += 1;
+            i = (int) (i * 1.1);
+        }
     }
 
     @Override
@@ -126,6 +142,7 @@ public abstract class GameCharacter implements MapElement {
         this.stateTimer = 1.0f;
         this.timePerFrame = 0.2f;
         this.target = null;
+        expToScreen = new StringBuilder().append("0 / ").append(i);
     }
 
     public int getCurrentFrameIndex() {
